@@ -1,25 +1,42 @@
 <template>
-  <button type="submit" @click="loadData">Load users</button>
-  <p v-if="error">Error</p>
-  <p v-if="loading">loading...</p>
-  <input v-model="usersSearch" placeholder="Search">
-  <label>
-    <input type="checkbox" v-model="onlyWithCompany"/>
-    Only users with company
-  </label>
-  <select v-model="sortOrder">
-    <option value="">Default</option>
-    <option value="asc">A–Z</option>
-    <option value="desc">Z–A</option>
-  </select>
-  <ul>
-    <li v-for="user in filteredUsers" :key="user.id">
-      {{ user.name }} - {{ user.email }}
-    </li>
-  </ul>
-  <button type="button" @click="resetFilters">
-    Reset filters
-  </button>
+
+  <div class="app">
+    <div class="wrapper">
+      <button class="btn" type="button" @click="loadData">
+        Load users
+      </button>
+
+      <p v-if="error" class="error">Error</p>
+      <p v-if="loading" class="loading">Loading...</p>
+
+      <input
+          v-model="usersSearch"
+          type="text"
+          placeholder="Search users"
+      />
+
+      <label class="checkbox">
+        <input type="checkbox" v-model="onlyWithCompany"/>
+        Only users with company
+      </label>
+
+      <select v-model="sortOrder">
+        <option value="">Default</option>
+        <option value="asc">A–Z</option>
+        <option value="desc">Z–A</option>
+      </select>
+      <button class="reset" type="button" @click="resetFilters">
+        Reset filters
+      </button>
+    </div>
+    <ul>
+      <li v-for="user in filteredUsers" :key="user.id">
+        <strong>{{ user.name }}</strong>
+        <span>{{ user.email }}</span>
+      </li>
+    </ul>
+  </div>
+
 </template>
 
 <script setup>
@@ -96,8 +113,84 @@ function resetFilters() {
 }
 </script>
 
-
 <style scoped>
 
+.app {
+  max-width: 1140px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
 
+.wrapper {
+  width: 250px;
+  margin: 0 auto;
+}
+
+
+.btn {
+  padding: 10px 16px;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 8px 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+li {
+  width: 200px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+li span {
+  display: block;
+  font-size: 14px;
+  color: #555;
+}
+
+.error {
+  color: red;
+}
+
+.loading {
+  color: gray;
+}
+
+.reset {
+  margin-top: 12px;
+  padding: 8px 14px;
+  background-color: #e5e7eb;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
 </style>
+
